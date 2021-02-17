@@ -10,13 +10,23 @@ module Decidim
     end
 
     def stats_heading
-      "headline"
-      # t("statistics.assemblies.headline", scope: "decidim")
+      t("decidim.statistics.headline")
     end
 
     def no_stats
-      "no_stats"
-      # t("statistics.assemblies.no_stats", scope: "decidim")
+      t("decidim.statistics.no_stats")
+    end
+
+    def heading?
+      options[:heading].presence || true
+    end
+
+    def size
+      options[:size].presence || "default"
+    end
+
+    def wrapper_class
+      "large-8" if size == "default"
     end
   end
 end

@@ -3,7 +3,7 @@
 module Decidim
   module ParticipatoryProcessGroups
     module ContentBlocks
-      class StatsCell < Decidim::StatisticsCell
+      class StatisticsCell < Decidim::StatisticsCell
         def stats
           @stats ||= Decidim::ParticipatoryProcesses::ParticipatoryProcessGroupStatsPresenter.new(participatory_process_group: participatory_process_group).collection
         end

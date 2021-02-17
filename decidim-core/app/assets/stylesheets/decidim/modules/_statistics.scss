@@ -1,10 +1,10 @@
-.space-stats{
+.statistics-cell{
   overflow: hidden;
   margin: 2rem 0;
   display: flex;
   flex-wrap: wrap;
 
-  &__title{
+  .statistic__title{
     color: $muted;
     font-size: .9rem;
     letter-spacing: .01em;
@@ -13,7 +13,7 @@
     margin-bottom: 0;
   }
 
-  &__data{
+  .statistic__data{
     text-align: center;
     padding: 1rem .25rem;
     width: calc(50% - 1rem);
@@ -45,7 +45,7 @@
     }
   }
 
-  &__number{
+  .statistic__number{
     font-weight: 800;
     font-size: 2rem;
     line-height: 1;

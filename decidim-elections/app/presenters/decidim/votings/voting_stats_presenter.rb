@@ -7,7 +7,7 @@ module Decidim
       attribute :voting, Decidim::Votings::Voting
       include Decidim::IconHelper
 
-      # Public: returns a collection of stats (Hash) for the Process Home.
+      # Public: returns a collection of stats (Hash) for the Voting Landing.
       def collection
         highlighted_stats = voting_participants_stats
         highlighted_stats.concat(voting_followers_stats(priority: StatsRegistry::HIGH_PRIORITY))

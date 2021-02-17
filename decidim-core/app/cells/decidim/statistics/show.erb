@@ -1,13 +1,15 @@
-<section class="row statistics" id="participatory_process-statistics">
-  <div class="columns large-8">
+<section class="row cell-statistics statistics-cell" id="resource-statistics">
+  <div class="columns <%= wrapper_class %>">
     <div class="row column">
-      <h3 class="section-heading">
-        <%= stats_heading %>
-      </h3>
+      <% if heading? %>
+        <h3 class="section-heading">
+          <%= stats_heading %>
+        </h3>
+      <% end %>
 
-      <div class="space-stats">
+      <div class="statistics-cell">
         <% if stats.present? %>
-          <%= cell("decidim/statistic", collection: stats) %>
+          <%= cell("decidim/statistic", collection: stats, size: size) %>
         <% else %>
           <span class="muted"><%= no_stats %></span>
         <% end %>

@@ -5,6 +5,10 @@ module Decidim
   class StatisticCell < Decidim::ViewModel
     include ActionView::Helpers::NumberHelper
 
+    def show
+      render size
+    end
+
     private
 
     def stat_number
@@ -12,7 +16,11 @@ module Decidim
     end
 
     def stat_title
-      t(model[:stat_title], scope: "decidim.assemblies.statistics")
+      t(model[:stat_title], scope: "decidim.statistics")
+    end
+
+    def size
+      options[:size].presence || "default"
     end
   end
 end
