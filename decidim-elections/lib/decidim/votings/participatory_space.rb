@@ -71,6 +71,24 @@ Decidim.register_participatory_space(:votings) do |participatory_space|
           published_at: Time.current
         )
       end
+
+      attachment_collection = Decidim::AttachmentCollection.create!(
+        name: Decidim::Faker::Localized.word,
+        description: Decidim::Faker::Localized.sentence(word_count: 5),
+        collection_for: voting
+      )
+
+      attachments = ["Exampledocument.pdf", "city2.jpeg", "Exampledocument.pdf"]
+
+      attachments.each.with_index do |attachment, index|
+        Decidim::Attachment.create!(
+          title: Decidim::Faker::Localized.sentence(word_count: 2),
+          description: Decidim::Faker::Localized.sentence(word_count: 5),
+          attachment_collection: index.zero? ? attachment_collection : nil ,
+          attached_to: voting,
+          file: File.new(File.join(seeds_root, attachment)) # Keep after attached_to
+        )
+      end
     end
   end
 end
