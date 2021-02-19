@@ -5,7 +5,7 @@ module Decidim
     # A controller that holds the logic to show votings in a
     # public layout.
     class VotingsController < Decidim::Votings::ApplicationController
-      layout "layouts/decidim/voting", only: :show
+      layout "layouts/decidim/votings"
 
       include ParticipatorySpaceContext
       include NeedsVoting
@@ -13,7 +13,7 @@ module Decidim
       include Paginable
       include Decidim::Votings::Orderable
 
-      helper_method :published_votings, :paginated_votings, :filter, :promoted_votings, :only_finished_votings?
+      helper_method :published_votings, :paginated_votings, :filter, :promoted_votings, :only_finished_votings?, :voting_header
 
       helper Decidim::FiltersHelper
       helper Decidim::OrdersHelper
@@ -31,9 +31,9 @@ module Decidim
       end
 
       def show
-        raise ActionController::RoutingError, "Not Found" unless current_voting
+        raise ActionController::RoutingError, "Not Found" unless current_participatory_space
 
-        enforce_permission_to :read, :voting, voting: current_voting
+        enforce_permission_to :read, :voting, voting: current_participatory_space
       end
 
       private
@@ -92,6 +92,14 @@ module Decidim
 
       def single
         published_votings.first if single?
+      end
+
+      def voting_header
+        @voting_header ||= Decidim::ContentBlock.published.find_by(
+          manifest_name: :header,
+          scope_name: :voting_landing_page,
+          scoped_resource_id: current_participatory_space&.id
+        )
       end
     end
   end
