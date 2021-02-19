@@ -1,0 +1,23 @@
+<% if polling_stations.any? %>
+  <hr class="reset mt-none mb-m">
+  <section class="section" id="venues">
+    <h3 class="section-heading">
+      Polling stations
+      <%#= t("conference_venues", scope: "decidim.meetings") %>
+    </h3>
+    <div class="row">
+      <div class="column medium-4">
+        <% polling_stations.each do |polling_station| %>
+          <%== cell("decidim/conferences/conference_address", polling_station) %>
+        <% end %>
+      </div>
+
+      <div class="column medium-8">
+        <%= render :map %>
+      </div>
+    </div>
+  </section>
+<% else %>
+  <%#= t("conference_venues", scope: "decidim.meetings") %>
+  No polling stations yet
+<% end %>
