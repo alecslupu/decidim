@@ -1,8 +1,15 @@
 <%= render "layouts/decidim/application" do %>
-  <%= participatory_space_floating_help %>
-  <%= cell(voting_header.manifest.cell, voting_header) if current_participatory_space %>
-  <%= cell "decidim/translation_bar", current_organization %>
-  <%= yield %>
+  <% if current_participatory_space_manifest.name == :votings && controller_name == "votings" %>
+    <%= cell(voting_header.manifest.cell, voting_header) if voting_header %>
+  <% elsif current_participatory_space %>
+    <%= cell("decidim/votings/content_blocks/landing_page/header", nil)%>
+  <% end %>
+
+  <div class="wrapper">
+    <%= participatory_space_floating_help %>
+    <%= cell "decidim/translation_bar", current_organization %>
+    <%= yield %>
+  </div>
 
   <% if content_for? :expanded %>
     <div class="expanded">

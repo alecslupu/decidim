@@ -5,7 +5,15 @@ module Decidim
     module ContentBlocks
       module LandingPage
         class HeaderCell < Decidim::ViewModel
-          delegate :current_participatory_space, to: :controller
+          include Cell::ViewModel::Partial
+          include Decidim::LayoutHelper
+          include Browser::ActionController
+          include Decidim::ComponentPathHelper
+          include ActiveLinkTo
+
+          delegate :current_participatory_space,
+                   :voting_header,
+                   to: :controller
 
           private
 
@@ -30,15 +38,52 @@ module Decidim
           end
 
           def translated_button_text
+            return unless model
+
             @translated_button_text ||= translated_attribute(model.settings.button_text)
           end
 
           def translated_button_url
+            return unless model
+
             @translated_button_url ||= translated_attribute(model.settings.button_url)
           end
 
           def cta_button
+            return unless model
+
             link_to translated_button_text, translated_button_url, class: "button button--sc expanded", title: translated_button_text
+          end
+
+          # component navigation
+
+          def components
+            @components ||= current_participatory_space.components
+                                                       .published
+                                                       .or(Decidim::Component.where(id: try(:current_component)))
+          end
+
+          def navigation_items
+            ([
+
+              {
+                name: t("layouts.decidim.voting_navigation.voting_menu_item"),
+                url: decidim_votings.voting_path(current_participatory_space),
+                active: is_active_link?(decidim_votings.voting_path(current_participatory_space), :exclusive)
+
+              }
+            ] + components.map do |component|
+                  {
+                    name: translated_attribute(component.name),
+                    url: main_component_path(component),
+                    active: is_active_link?(main_component_path(component), :inclusive)
+                  }
+                end
+            ).compact
+          end
+
+          def decidim_votings
+            Decidim::Votings::Engine.routes.url_helpers
           end
         end
       end
