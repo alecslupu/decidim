@@ -90,6 +90,27 @@ Decidim.register_participatory_space(:votings) do |participatory_space|
         )
       end
 
+      if !voting.online_voting?
+        3.times do |p|
+          params = {
+            voting: voting,
+            title: Decidim::Faker::Localized.sentence(word_count: 5),
+            address: Faker::Address.full_address,
+            latitude: Faker::Address.latitude,
+            longitude: Faker::Address.longitude,
+            location: Decidim::Faker::Localized.sentence,
+            location_hints: Decidim::Faker::Localized.sentence,
+          }
+
+          Decidim.traceability.create!(
+            Decidim::Votings::PollingStation,
+            organization.users.first,
+            params,
+            visibility: "all"
+          )
+        end
+      end
+
       Decidim.component_manifests.each do |manifest|
         next unless [:elections].member? manifest.name
 
