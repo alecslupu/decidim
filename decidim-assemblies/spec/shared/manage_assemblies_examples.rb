@@ -76,7 +76,7 @@ shared_examples "manage assemblies" do
     context "when the assembly is published" do
       let!(:assembly) { create(:assembly, organization: organization, parent: parent_assembly) }
 
-      it "allows the user to preview the unpublished assembly" do
+      it "allows the user to preview the published assembly" do
         within find("tr", text: translated(assembly.title)) do
           click_link "Preview"
         end
