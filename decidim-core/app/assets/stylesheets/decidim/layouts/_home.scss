@@ -294,9 +294,9 @@
   }
 }
 
-/* Home PAM */
+/* Home Statistics */
 
-.home-pam{
+.home-stats{
   overflow: hidden;
   margin: 2rem 0;
 
@@ -305,7 +305,7 @@
   }
 }
 
-.home-pam__title{
+.home-stats__title{
   color: $muted;
   font-size: .9rem;
   letter-spacing: .01em;
@@ -313,12 +313,12 @@
   font-weight: 600;
   margin-bottom: 0;
 
-  .home-pam__lowlight &{
+  .home-stats__lowlight &{
     display: inline;
   }
 }
 
-.home-pam__data{
+.home-stats__data{
   text-align: center;
 
   @include breakpoint(medium){
@@ -327,12 +327,15 @@
 
   padding: .25rem;
 
-  .home-pam__highlight &{
+  .home-stats__highlight &{
     padding: 1rem 2rem;
 
     @include breakpoint(medium){
       width: 50%;
       border-bottom: $border;
+    }
+
+    &:nth-child(odd){
       border-right: $border;
     }
 
@@ -341,7 +344,7 @@
     }
   }
 
-  .home-pam__lowlight &{
+  .home-stats__lowlight &{
     float: none;
 
     @include breakpoint(mediumlarge){
@@ -361,21 +364,21 @@
   }
 }
 
-.home-pam__highlight{
+.home-stats__highlight{
   @include breakpoint(medium){
     display: flex;
   }
 }
 
-.home-pam__lowlight{
+.home-stats__lowlight{
   text-align: center;
 }
 
-.home-pam__number{
+.home-stats__number{
   font-size: 1.2rem;
   font-weight: 800;
 
-  .home-pam__highlight &{
+  .home-stats__highlight &{
     font-size: 4rem;
     line-height: 1;
   }

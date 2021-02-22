@@ -3,9 +3,9 @@
 module Decidim
   module ParticipatoryProcessGroups
     module ContentBlocks
-      class StatsCell < Decidim::ViewModel
+      class StatisticsCell < Decidim::StatisticsCell
         def stats
-          @stats ||= Decidim::ParticipatoryProcesses::ParticipatoryProcessGroupStatsPresenter.new(participatory_process_group: participatory_process_group)
+          @stats ||= Decidim::ParticipatoryProcesses::ParticipatoryProcessGroupStatsPresenter.new(participatory_process_group: participatory_process_group).collection
         end
 
         def participatory_process_group

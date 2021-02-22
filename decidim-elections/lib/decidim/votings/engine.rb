@@ -110,7 +110,7 @@ module Decidim
         end
 
         Decidim.content_blocks.register(:voting_landing_page, :stats) do |content_block|
-          content_block.cell = "decidim/votings/content_blocks/landing_page/stats"
+          content_block.cell = "decidim/votings/content_blocks/landing_page/statistics"
           content_block.public_name_key = "decidim.votings.admin.content_blocks.landing_page.stats.name"
           content_block.default!
         end
@@ -142,10 +142,6 @@ module Decidim
 
       initializer "decidim_votings.query_extensions" do
         Decidim::Api::QueryType.include Decidim::Votings::QueryExtensions
-      end
-
-      def load_seed
-        nil
       end
     end
   end
